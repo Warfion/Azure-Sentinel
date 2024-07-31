@@ -12,17 +12,17 @@ The "Get-MsSentinelWatchlist.ps1" file is a PowerShell script designed to list a
 
 ## Functionality
 - Azure Connection:
-Retrieves the current Azure context. If not connected, it prompts the user to connect using device authentication.
-Outputs the subscription ID to confirm the connection.
+    - Retrieves the current Azure context. If not connected, it prompts the user to connect using device authentication.
+    - Outputs the subscription ID to confirm the connection.
 
 - Workspace Retrieval:
-Retrieves the specified Azure workspace.
-Constructs the API path for accessing watchlists if the workspace exists.
+    - Retrieves the specified Azure workspace.
+    - Constructs the API path for accessing watchlists if the workspace exists.
 
 - Watchlist Retrieval:
-Uses Invoke-AzRestMethod to fetch watchlists from the constructed API path.
-If successful, it processes the response to list all watchlists.
-Error handling is in place to provide feedback if the watchlists cannot be retrieved.
+    - Uses Invoke-AzRestMethod to fetch watchlists from the constructed API path.
+    - If successful, it processes the response to list all watchlists.
+    - Error handling is in place to provide feedback if the watchlists cannot be retrieved.
 
 ## Result
 <div style="text-align: right"><img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/Get-MsSentinelWatchlist/Images/image_1.png"</div>
