@@ -17,6 +17,7 @@ Param
 (
     # Graph access token
     [Parameter(Mandatory = $true, ValueFromPipeline = $true, Position = 0)]
+    [ValidateNotNullOrEmpty()]
     [string]$WorkspaceName
 )
 
