@@ -3,3 +3,6 @@ This script can be used to list all watchlists in Microsoft Sentinel through Pow
 
 ## Usage
 The script has 1 required parameters.
+
+### WorkspaceName
+- The name of the Log Analytics workspace
