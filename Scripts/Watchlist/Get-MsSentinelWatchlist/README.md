@@ -1,25 +1,31 @@
 # Get-MsSentinelWatchlist
-This script can be used to list all watchlists by name in Microsoft Sentinel through PowerShell + Microsoft Sentinel REST API.
+The Get-MsSentinelWatchlist.ps1 file is a PowerShell script designed to list all watchlists in Microsoft Sentinel. Here is a breakdown of its functionality:
 
-## Functionality:
-- Establishes a connection to Azure.
-- Retrieves the specified Azure Log Analytics workspace.
-- Sends a REST request to list all watchlists in the specified workspace in Microsoft Sentinel.
-- Outputs the watchlists or an error message if the operation fails.
+Purpose: Lists all watchlists in Microsoft Sentinel.
+Dependencies: Requires the Az.Resources module.
+Usage Example: Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -Context 'C:\users\securehats\highValueAsset.json'
 
-## Usage
-The script has 1 required parameters.
+## Parameters
+- WorkspaceName: The name of the Azure workspace (mandatory).
 
-### WorkspaceName
-- The name of the Log Analytics workspace
+## Functionality
+- Azure Connection:
+Retrieves the current Azure context. If not connected, it prompts the user to connect using device authentication.
+Outputs the subscription ID to confirm the connection.
+
+- Workspace Retrieval:
+Retrieves the specified Azure workspace.
+Constructs the API path for accessing watchlists if the workspace exists.
+
+- Watchlist Retrieval:
+Uses Invoke-AzRestMethod to fetch watchlists from the constructed API path.
+If successful, it processes the response to list all watchlists.
+Error handling is in place to provide feedback if the watchlists cannot be retrieved.
 
 ## Result
-
 <div style="text-align: right"><img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/Get-MsSentinelWatchlist/Images/image_1.png"</div>
 
 ## Links:
-
 https://learn.microsoft.com/en-us/rest/api/securityinsights/watchlists/list?view=rest-securityinsights-2024-03-01&tabs=HTTP
-
-                                 
+                             
 Created by: Thomas Bruend
