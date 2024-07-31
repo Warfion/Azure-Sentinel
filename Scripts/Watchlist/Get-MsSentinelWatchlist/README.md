@@ -2,10 +2,10 @@
 This script can be used to list all watchlists by name in Microsoft Sentinel through PowerShell + Microsoft Sentinel REST API.
 
 ## Functionality:
-Establishes a connection to Azure.
-Retrieves the specified Azure Log Analytics workspace.
-Sends a REST request to list all watchlists in the specified workspace in Microsoft Sentinel.
-Outputs the watchlists or an error message if the operation fails.
+- Establishes a connection to Azure.
+- Retrieves the specified Azure Log Analytics workspace.
+- Sends a REST request to list all watchlists in the specified workspace in Microsoft Sentinel.
+- Outputs the watchlists or an error message if the operation fails.
 
 ## Usage
 The script has 1 required parameters.
