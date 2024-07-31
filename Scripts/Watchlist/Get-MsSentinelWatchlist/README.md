@@ -9,6 +9,6 @@ The script has 1 required parameters.
 
 ### Result
 
-<div style="text-align: right"><img src="https://github.com/mariocuomo_microsoft/Use-Cases-Mapper/blob/main/img/img1.png" width="290" /><img src="https://github.com/mariocuomo_microsoft/Use-Cases-Mapper/blob/main/img/img2.png" width="350" /></div>
-
+<div style="text-align: right"><img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/Get-MsSentinelWatchlist/Images/image_1.png</div>
+                                 
 Created by: Thomas Bruend
