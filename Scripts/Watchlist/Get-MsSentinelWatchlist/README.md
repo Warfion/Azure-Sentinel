@@ -1,5 +1,5 @@
 # Get-MsSentinelWatchlist
-This script can be used to list all watchlists by name in Microsoft Sentinel through PowerShell + 
+This script can be used to list all watchlists by name in Microsoft Sentinel through PowerShell + Microsoft Sentinel REST API.
 
 ## Usage
 The script has 1 required parameters.
