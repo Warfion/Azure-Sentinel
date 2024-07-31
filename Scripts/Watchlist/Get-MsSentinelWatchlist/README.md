@@ -1,5 +1,5 @@
 # Get-MsSentinelWatchlist
-The Get-MsSentinelWatchlist.ps1 file is a PowerShell script designed to list all watchlists in Microsoft Sentinel. Here is a breakdown of its functionality:
+The "Get-MsSentinelWatchlist.ps1" file is a PowerShell script designed to list all watchlists in Microsoft Sentinel. Here is a breakdown of its functionality:
 
 Purpose: Lists all watchlists in Microsoft Sentinel.
 Dependencies: Requires the Az.Resources module.
