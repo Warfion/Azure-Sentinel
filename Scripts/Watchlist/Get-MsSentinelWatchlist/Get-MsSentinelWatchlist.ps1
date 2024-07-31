@@ -52,19 +52,15 @@ Write-Verbose ($_context | ConvertTo-Json)
 try {
     $webData = Invoke-AzRestMethod -Path $watchlistpath -Method GET
     if ($webData.StatusCode -eq 200) {
-        $webData = Invoke-AzRestMethod -Path $watchlistpath -Method GET
-        $webData = ($webData.Content | ConvertFrom-Json).value.name
+        $webData = ($webData.Content | ConvertFrom-Json).value
         
-        $watchlists = [System.Collections.Generic.List[object]]::new()
-        
-        foreach ($data in $webData){
+        $watchlists = [System.Collections.Generic.List[PSObject]]::new()
+        foreach ($data in $webData) {
             $watchlist = [PSCustomObject]@{
-                
-                watchlist = $data
+                Watchlist = $data.name
             }
-        $watchlists.Add($watchlist)
+            $watchlists.Add($watchlist)
         }
-        
         $watchlists
     }
     else {
