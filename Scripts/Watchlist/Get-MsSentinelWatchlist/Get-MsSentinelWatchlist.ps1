@@ -6,8 +6,10 @@
 .NOTES
     Needed Modules Az.Resources - Install-Module Az.Resources -AllowClobber -Force
 .EXAMPLE
-    
-Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -Context 'C:\users\securehats\highValueAsset.json'
+
+Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace'
+
+Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -Verbose
 
 #>
 
@@ -68,6 +70,7 @@ function Write-ColorOutput
 
 Write-Verbose 'Starting "Get-MsSentinelWatchlist.ps1" script.'
 Write-Verbose "Trying to connect to Azure..."
+# Connect to Azure with device authentication
 try {
     $context = Get-AzContext
     if (!$context) {
@@ -124,6 +127,3 @@ catch {
     Write-Error "Unable to list all watchlists with error code: $($_.Exception.Message)" -ErrorAction Stop
     Write-Verbose $_
 }
-
-# https://github.com/SecureHats/SecureHacks/blob/main/scripts/Azure/Sentinel/New-MsSentinelWatchlist/New-MsSentinelWatchlist.ps1
-# https://learn.microsoft.com/en-us/rest/api/securityinsights/watchlist-items/list?view=rest-securityinsights-2024-03-01&tabs=HTTP
