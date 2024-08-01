@@ -15,17 +15,68 @@ Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -Context 'C:\users\secureha
 [Alias()]
 Param
 (
-    # Graph access token
     [Parameter(Mandatory = $true, ValueFromPipeline = $true, Position = 0)]
     [ValidateNotNullOrEmpty()]
     [string]$WorkspaceName
 )
 
-$context = Get-AzContext
+function Write-ColorOutput
+{
+    [CmdletBinding()]
+    Param(
+         [Parameter(Mandatory=$False,Position=1,ValueFromPipeline=$True,ValueFromPipelinebyPropertyName=$True)][Object] $Object,
+         [Parameter(Mandatory=$False,Position=2,ValueFromPipeline=$True,ValueFromPipelinebyPropertyName=$True)][ConsoleColor] $ForegroundColor,
+         [Parameter(Mandatory=$False,Position=3,ValueFromPipeline=$True,ValueFromPipelinebyPropertyName=$True)][ConsoleColor] $BackgroundColor,
+         [Switch]$NoNewline
+    )    
 
-if (!$context) {
-    Connect-AzAccount -UseDeviceAuthentication
+    # Save previous colors
+    $previousForegroundColor = $host.UI.RawUI.ForegroundColor
+    $previousBackgroundColor = $host.UI.RawUI.BackgroundColor
+
+    # Set BackgroundColor if available
+    if($BackgroundColor -ne $null)
+    { 
+       $host.UI.RawUI.BackgroundColor = $BackgroundColor
+    }
+
+    # Set $ForegroundColor if available
+    if($ForegroundColor -ne $null)
+    {
+        $host.UI.RawUI.ForegroundColor = $ForegroundColor
+    }
+
+    # Always write (if we want just a NewLine)
+    if($null -eq $Object)
+    {
+        $Object = ""
+    }
+
+    if($NoNewline)
+    {
+        [Console]::Write($Object)
+    }
+    else
+    {
+        Write-Output $Object
+    }
+
+    # Restore previous colors
+    $host.UI.RawUI.ForegroundColor = $previousForegroundColor
+    $host.UI.RawUI.BackgroundColor = $previousBackgroundColor
+}
+
+Write-Verbose 'Starting "Get-MsSentinelWatchlist.ps1" script.'
+Write-Verbose "Trying to connect to Azure..."
+try {
     $context = Get-AzContext
+    if (!$context) {
+        Connect-AzAccount -UseDeviceAuthentication
+        $context = Get-AzContext
+    }
+}
+catch {
+    Write-Error "Failed to get or connect to Azure context: $_" -ErrorAction Stop
 }
 
 $_context = @{
@@ -33,8 +84,9 @@ $_context = @{
     'Subscription Id' = $context.Subscription
     'Tenant'          = $context.Tenant
 }
-Clear-Host
-Write-Output "Connected to Azure with subscriptionId: $($context.Subscription)`n"
+
+Write-ColorOutput "Connected to Azure with subscriptionId: "  Green Black -NoNewLine
+Write-ColorOutput "$($context.Subscription)`n"
 
 $workspace = Get-AzResource -Name $WorkspaceName -ResourceType 'Microsoft.OperationalInsights/workspaces'
 
@@ -44,9 +96,10 @@ if ($null -ne $workspace) {
     $watchlistpath = '{0}/watchlists/{1}{2}' -f $baseUri, $AliasName, $apiVersion
 }
 else {
-    Write-Output "[-] Unable to retrieve log Analytics workspace"
+    Write-ColorOutput "[-] Unable to retrieve log Analytics workspace" Red Black -NoNewLine
 }
-
+Write-Verbose "Azure Connection Context - Details:"
+Write-Verbose "----------------------------------------------------------------------------------------------"
 Write-Verbose ($_context | ConvertTo-Json)
 
 try {
@@ -68,6 +121,9 @@ try {
     }
 }
 catch {
-    Write-Verbose $_
     Write-Error "Unable to list all watchlists with error code: $($_.Exception.Message)" -ErrorAction Stop
+    Write-Verbose $_
 }
+
+# https://github.com/SecureHats/SecureHacks/blob/main/scripts/Azure/Sentinel/New-MsSentinelWatchlist/New-MsSentinelWatchlist.ps1
+# https://learn.microsoft.com/en-us/rest/api/securityinsights/watchlist-items/list?view=rest-securityinsights-2024-03-01&tabs=HTTP
