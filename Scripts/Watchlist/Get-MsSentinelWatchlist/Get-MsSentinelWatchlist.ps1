@@ -108,22 +108,30 @@ Write-Verbose ($_context | ConvertTo-Json)
 try {
     $webData = Invoke-AzRestMethod -Path $watchlistpath -Method GET
     if ($webData.StatusCode -eq 200) {
+        # Convert JSON content to PowerShell object
         $webData = ($webData.Content | ConvertFrom-Json).value
-        
+
+        # Initialize a list to store watchlists
         $watchlists = [System.Collections.Generic.List[PSObject]]::new()
+        
+        # Iterate through each data item and create a custom object
         foreach ($data in $webData) {
             $watchlist = [PSCustomObject]@{
                 Watchlist = $data.name
             }
             $watchlists.Add($watchlist)
         }
-        $watchlists
+        
+        # Return the list of watchlists
+        return $watchlists
     }
     else {
-        Write-Output $webData | ConvertFrom-Json
+        # Output the error response
+        Write-Output ($webData.Content | ConvertFrom-Json)
     }
 }
 catch {
+    # Log the error message and stop execution
     Write-Error "Unable to list all watchlists with error code: $($_.Exception.Message)" -ErrorAction Stop
     Write-Verbose $_
 }
