@@ -1,16 +1,10 @@
 <#
 .SYNOPSIS
     Helper function that lists all watchlists in Microsoft Sentinel
-.DESCRIPTION
-    This helper function lists all watchlists in Microsoft Sentinel
-.NOTES
-    Needed Modules Az.Resources - Install-Module Az.Resources -AllowClobber -Force
+
 .EXAMPLE
-
 Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace'
-
 Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -Verbose
-
 #>
 
 [CmdletBinding()]
