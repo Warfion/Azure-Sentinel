@@ -5,7 +5,11 @@ The "Get-MsSentinelWatchlist.ps1" file is a PowerShell script designed to list a
 
 ***Dependencies***: Requires the Az.Resources module.
 
-***Usage Example***: Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -Context 'C:\users\securehats\highValueAsset.json'
+***Usage Example***: 
+
+`Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace'`
+
+`Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -Verbose`
 
 ## Parameters
 - WorkspaceName: The name of the Azure workspace (mandatory).
