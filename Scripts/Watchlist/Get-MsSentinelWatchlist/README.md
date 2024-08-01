@@ -25,7 +25,7 @@ The "Get-MsSentinelWatchlist.ps1" file is a PowerShell script designed to list a
     - Error handling is in place to provide feedback if the watchlists cannot be retrieved.
 
 ## Result
-<div style="text-align: right"><img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/Get-MsSentinelWatchlist/Images/image_1.png"</div>
+<div style="text-align: right"><img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/Get-MsSentinelWatchlist/images/image_1.png"</div>
 
 ## Links:
 https://learn.microsoft.com/en-us/rest/api/securityinsights/watchlists/list?view=rest-securityinsights-2024-03-01&tabs=HTTP
