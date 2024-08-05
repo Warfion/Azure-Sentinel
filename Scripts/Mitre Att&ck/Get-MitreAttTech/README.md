@@ -20,11 +20,6 @@ The "Get-MitreAttTech.ps1" 📄 uses the GitHub API to load the MITRE ATT&CK Ent
 - OutputFormat (string): The format for outputting the data. Options are None, CSV, or JSON. Default is None.
 - OutputPath (string): The path to save the output file. Default is the current directory with the filename techniques.csv.
 
-It looks like I couldn't retrieve the specific contents of the Get-MitreAttTech.ps1 file. However, I can help explain what a PowerShell script file typically contains:
+## Functionality
 
-Functions and Cmdlets: PowerShell scripts often include custom functions or cmdlets to perform specific tasks.
-Parameters: Scripts can accept parameters to customize their execution.
-Pipeline Processing: Scripts may process input from the PowerShell pipeline.
-Error Handling: There might be mechanisms to handle errors gracefully.
-Comments and Documentation: Scripts should include comments to explain what each part of the script does.
-If you can provide more details or context about the script, I can help with a more specific explanation.
+
