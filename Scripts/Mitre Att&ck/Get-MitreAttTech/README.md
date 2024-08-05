@@ -1,5 +1,5 @@
 # Get-MitreAttTech
-The "Get-MitreAttTec.ps1" 📄 uses the GitHub API to load the MITRE ATT&CK Enterprise Attack Pattern / Techniques and export the results to CSV or JSON.
+The "Get-MitreAttTech.ps1" 📄 uses the GitHub API to load the MITRE ATT&CK Enterprise Attack Pattern / Techniques and export the results to CSV or JSON.
 
 ***Purpose***: Lists all watchlists in Microsoft Sentinel.
 
