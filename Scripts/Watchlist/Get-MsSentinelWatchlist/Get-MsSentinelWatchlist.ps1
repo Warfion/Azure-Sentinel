@@ -111,7 +111,8 @@ try {
         # Iterate through each data item and create a custom object
         foreach ($data in $webData) {
             $watchlist = [PSCustomObject]@{
-                Watchlist = $data.name
+                WatchlistName = $data.name
+                WatchlistID = $data.properties.watchlistId
             }
             $watchlists.Add($watchlist)
         }
