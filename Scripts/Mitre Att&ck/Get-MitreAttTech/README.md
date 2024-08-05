@@ -25,23 +25,23 @@ The "Get-MitreAttTech.ps1" 📄 uses the GitHub API to load the MITRE ATT&CK Ent
 - Parameter Setup (see Paramter Sektion oben)
 
 - Write-ProgressHelper Function:
-Displays a progress bar with the title, step number, message, and total steps to provide feedback to the user during execution.
+    - Displays a progress bar with the title, step number, message, and total steps to provide feedback to the user during execution.
 
 - Data Retrieval:
-Uses Invoke-WebRequest to fetch the list of attack patterns from the specified BaseUrl.
-Handles errors if the request fails, displaying an error message.
+    - Uses Invoke-WebRequest to fetch the list of attack patterns from the specified BaseUrl.
+    - Handles errors if the request fails, displaying an error message.
 
 - Data Processing:
-Extracts relevant URLs for attack patterns using regular expressions.
-Iterates through each URL to fetch and parse JSON data for individual attack techniques.
-Uses ConvertFrom-Json to convert the JSON data into PowerShell objects.
+    - Extracts relevant URLs for attack patterns using regular expressions.
+    - Iterates through each URL to fetch and parse JSON data for individual attack techniques.
+    - Uses ConvertFrom-Json to convert the JSON data into PowerShell objects.
 
 - Progress Updates:
-Uses Write-ProgressHelper to update the progress bar during the processing of each attack technique.
+    - Uses Write-ProgressHelper to update the progress bar during the processing of each attack technique.
 
 - Data Compilation:
-Extracts the technique ID, name, and associated tactics from the JSON data.
-Creates a list of techniques, storing each technique as a PSCustomObject with properties for ID, name, and tactics.
+    - Extracts the technique ID, name, and associated tactics from the JSON data.
+    - Creates a list of techniques, storing each technique as a PSCustomObject with properties for ID, name, and tactics.
 
 - Data Export:
     - Depending on the specified OutputFormat, the script exports the compiled list of techniques:
