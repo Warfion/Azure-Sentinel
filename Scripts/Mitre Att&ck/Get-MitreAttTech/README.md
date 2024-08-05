@@ -51,3 +51,8 @@ The "Get-MitreAttTech.ps1" 📄 uses the GitHub API to load the MITRE ATT&CK Ent
 
 - Error Handling:
     - Handles errors during data fetching and parsing, displaying appropriate error messages without stopping the entire script.
+
+## Result
+<div style="text-align: right"><img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Mitre Att&ck/Get-MitreAttTech/image/image_1.png"</div>
+                             
+Created by: Thomas Bruend
