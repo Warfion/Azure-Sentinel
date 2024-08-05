@@ -7,6 +7,11 @@ The "Get-MitreAttTech.ps1" 📄 uses the GitHub API to load the MITRE ATT&CK Ent
 
 ***Usage Example***: 
 
+`Get-MitreAttTech`
+`Get-MitreAttTech -Verbose`
+`Get-MitreAttTech -OutputFormat CSV -OutputPath "techniques.csv"`
+`Get-MitreAttTech -OutputFormat JSON -OutputPath "techniques.json"`
+
 It looks like I couldn't retrieve the specific contents of the Get-MitreAttTech.ps1 file. However, I can help explain what a PowerShell script file typically contains:
 
 Functions and Cmdlets: PowerShell scripts often include custom functions or cmdlets to perform specific tasks.
