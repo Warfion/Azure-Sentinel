@@ -12,7 +12,7 @@ The "Get-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to l
 `Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -Verbose`
 
 ## Parameters
-- WorkspaceName: The name of the Azure workspace (mandatory).
+- WorkspaceName(string): The name of the Azure workspace (mandatory).
 
 ## Functionality
 - Azure Connection:
