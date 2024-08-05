@@ -15,10 +15,11 @@ param (
     [string]$BaseUrl = "https://github.com/mitre/cti/tree/master/enterprise-attack/attack-pattern",
 
     [Parameter(Mandatory = $false, ValueFromPipeline = $false, Position = 1)]
+    [ValidateSet("None", "CSV", "JSON", IgnoreCase = $false)]
     [string]$OutputFormat = "None", # Options: None, CSV, JSON
-
+    
     [Parameter(Mandatory = $false, ValueFromPipeline = $false, Position = 2)]
-    [string]$OutputPath = ""
+    [string]$OutputPath = (Get-Location).Path + "\techniques.csv"
 )
 
 function Write-ProgressHelper {
