@@ -75,13 +75,17 @@ foreach ($subsite in $subsites) {
     })
 }
 
-# Return all the Mitre Att&ck Enterprise Attack Pattern / Techniques
-return $techniques
-
 if ($OutputFormat -eq "CSV") {
+    Write-Verbose "Exporting Results to CSV...."
     $techniques | Export-Csv -Path $OutputPath -NoTypeInformation
 } elseif ($OutputFormat -eq "JSON") {
+    Write-Verbose "Exporting Results to JSON...."
     $techniques | ConvertTo-Json | Set-Content -Path $OutputPath
+} elseif ($OutputFormat -eq "None") {
+    Write-Verbose "No Exportoption assigned."
 } elseif ($OutputFormat -ne "None") {
     Write-Error "Invalid output format specified. Use 'None', 'CSV', or 'JSON'."
 }
+
+# Return all the Mitre Att&ck Enterprise Attack Pattern / Techniques
+return $techniques
