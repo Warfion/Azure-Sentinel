@@ -45,9 +45,9 @@ The "Get-MitreAttTech.ps1" 📄 uses the GitHub API to load the MITRE ATT&CK Ent
 
 - Data Export:
     - Depending on the specified OutputFormat, the script exports the compiled list of techniques:
-      CSV: Uses Export-Csv to save the data to the specified OutputPath.
-      JSON: Converts the list to JSON format and saves it to the specified OutputPath.
-      None: If OutputFormat is None, no export is performed.
+      - CSV: Uses Export-Csv to save the data to the specified OutputPath.
+      - JSON: Converts the list to JSON format and saves it to the specified OutputPath.
+      - None: If OutputFormat is None, no export is performed.
 
 - Error Handling:
     - Handles errors during data fetching and parsing, displaying appropriate error messages without stopping the entire script.
