@@ -15,6 +15,11 @@ The "Get-MitreAttTech.ps1" 📄 uses the GitHub API to load the MITRE ATT&CK Ent
 
 `Get-MitreAttTech -OutputFormat JSON -OutputPath "techniques.json"`
 
+## Parameters
+- BaseUrl (string): The base URL for the MITRE ATT&CK data. Default is "https://github.com/mitre/cti/tree/master/enterprise-attack/attack-pattern".
+- OutputFormat (string): The format for outputting the data. Options are None, CSV, or JSON. Default is None.
+- OutputPath (string): The path to save the output file. Default is the current directory with the filename techniques.csv.
+
 It looks like I couldn't retrieve the specific contents of the Get-MitreAttTech.ps1 file. However, I can help explain what a PowerShell script file typically contains:
 
 Functions and Cmdlets: PowerShell scripts often include custom functions or cmdlets to perform specific tasks.
