@@ -19,7 +19,7 @@ The "New-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to c
 - AliasName (string): The alias name for the watchlist (mandatory).
 - itemsSearchKey (string): The key for searching items in the watchlist (mandatory).
 - csvFile ([System.IO.FileInfo]): The CSV file containing watchlist items (mandatory).
-- 
+
 ## Functionality
 - ***Azure Connection***:
     - Retrieves the current Azure context. If not connected, it prompts the user to connect using device authentication.
@@ -28,6 +28,15 @@ The "New-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to c
 - ***Workspace Retrieval***:
     - Retrieves the specified Azure workspace.
     - Constructs the API path for accessing the watchlist if the workspace exists.
+  
+- ***CSV File Processing***:
+    - Reads and processes the content of the provided CSV file.
+    - Validates the itemsSearchKey against the CSV headers.
+
+- ***Watchlist Creation***:
+    - Constructs the payload with watchlist details and raw CSV content.
+    - Uses Invoke-AzRestMethod to create the watchlist via the constructed API path.
+    - Provides feedback on the watchlist creation status.
 
 
 ## Result
