@@ -15,3 +15,11 @@ The "New-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to c
 
 ## Parameters
 - WorkspaceName(string): The name of the Azure workspace (mandatory).
+
+## Result
+<img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/New-MsSentinelWatchlist/image/image.png">
+
+## Links:
+https://learn.microsoft.com/en-us/rest/api/securityinsights/watchlists/create-or-update?view=rest-securityinsights-2024-03-01&tabs=HTTP
+                             
+Created by: Thomas Bruend
