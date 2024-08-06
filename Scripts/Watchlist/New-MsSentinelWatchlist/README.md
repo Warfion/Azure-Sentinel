@@ -41,6 +41,7 @@ The "New-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to c
 
 ## Result
 <img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/New-MsSentinelWatchlist/image/image.png">
+<img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/New-MsSentinelWatchlist/image/image_1.png">
 
 ## Links:
 https://learn.microsoft.com/en-us/rest/api/securityinsights/watchlists/create-or-update?view=rest-securityinsights-2024-03-01&tabs=HTTP
