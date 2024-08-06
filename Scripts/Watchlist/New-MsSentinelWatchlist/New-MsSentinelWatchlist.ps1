@@ -3,8 +3,8 @@
    Helper function that creates a watchlist in Microsoft Sentinel
 
 .EXAMPLE
-   New-MsSentinelWatchlist -WorkspaceName 'MyWorkspace'
-   New-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -Verbose
+   New-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -WatchlistName 'MyWatchlistName' -AliasName "MyAliasBame" -itemsSearchKey "MyWatchlistSearchKey" -csvFile "MyWatchlistImportFile.csv"
+   New-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -WatchlistName 'MyWatchlistName' -AliasName "MyAliasBame" -itemsSearchKey "MyWatchlistSearchKey" -csvFile "MyWatchlistImportFile.csv" -Verbose
 #>
 
 [CmdletBinding()]
