@@ -17,15 +17,15 @@ The "Get-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to l
 - ***WorkspaceName***(string): The name of the Azure workspace (mandatory).
 
 ## Functionality
-- Azure Connection:
+- ***Azure Connection***:
     - Retrieves the current Azure context. If not connected, it prompts the user to connect using device authentication.
     - Outputs the subscription ID to confirm the connection.
 
-- Workspace Retrieval:
+- ***Workspace Retrieval***:
     - Retrieves the specified Azure workspace.
     - Constructs the API path for accessing watchlists if the workspace exists.
 
-- Watchlist Retrieval:
+- ***Watchlist Retrieval***:
     - Uses Invoke-AzRestMethod to fetch watchlists from the constructed API path.
     - If successful, it processes the response to list all watchlists.
     - Error handling is in place to provide feedback if the watchlists cannot be retrieved.
