@@ -34,5 +34,6 @@ Provides feedback on the watchlist deletion status.
 - Displays any errors encountered during the process.
 
 ## Links:
+https://learn.microsoft.com/en-us/rest/api/securityinsights/watchlists/delete?view=rest-securityinsights-2024-03-01&tabs=HTTP
 
 Created by: Thomas Bruend
