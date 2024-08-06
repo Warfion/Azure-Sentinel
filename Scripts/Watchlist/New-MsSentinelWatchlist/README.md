@@ -25,7 +25,7 @@ The "New-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to c
     - Retrieves the current Azure context. If not connected, it prompts the user to connect using device authentication.
     - Outputs the subscription ID to confirm the connection.
  
-  - Workspace Retrieval:
+- Workspace Retrieval:
     - Retrieves the specified Azure workspace.
     - Constructs the API path for accessing the watchlist if the workspace exists.
 
