@@ -7,6 +7,5 @@ The "New-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to c
 
 ***Usage Example***: 
 
-`Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace'`
-
-`Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -Verbose`
+```New-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -WatchlistName 'MyWatchlistName' -AliasName "MyAliasBame" -itemsSearchKey "MyWatchlistSearchKey" -csvFile "MyWatchlistImportFile.csv"```
+```New-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -WatchlistName 'MyWatchlistName' -AliasName "MyAliasBame" -itemsSearchKey "MyWatchlistSearchKey" -csvFile "MyWatchlistImportFile.csv" -Verbose```
