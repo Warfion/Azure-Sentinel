@@ -32,6 +32,7 @@ The "Get-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to l
 
 ## Result
 <img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/Get-MsSentinelWatchlist/image/image.png">
+<img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/Get-MsSentinelWatchlist/image/image_1.png">
 
 ## Links:
 https://learn.microsoft.com/en-us/rest/api/securityinsights/watchlists/list?view=rest-securityinsights-2024-03-01&tabs=HTTP
