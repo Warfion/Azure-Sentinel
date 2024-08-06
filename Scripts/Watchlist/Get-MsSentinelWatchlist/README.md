@@ -5,7 +5,7 @@ The "Get-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to l
 
 ***Dependencies***: 
 - Requires Powershell 5.2 (or above).
-- Requires the Az.Resources module.
+- Requires the Az.Accounts module.
 
 ***Usage Example***: 
 
