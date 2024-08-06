@@ -12,3 +12,6 @@ The "New-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to c
 ```New-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -WatchlistName 'MyWatchlistName' -AliasName "MyAliasBame" -itemsSearchKey "MyWatchlistSearchKey" -csvFile "MyWatchlistImportFile.csv"```
 
 ```New-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -WatchlistName 'MyWatchlistName' -AliasName "MyAliasBame" -itemsSearchKey "MyWatchlistSearchKey" -csvFile "MyWatchlistImportFile.csv" -Verbose```
+
+## Parameters
+- WorkspaceName(string): The name of the Azure workspace (mandatory).
