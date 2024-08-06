@@ -1,21 +1,23 @@
-Remove-MsSentinelWatchlist
+# Remove-MsSentinelWatchlist
 The "Remove-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to delete a watchlist in Microsoft Sentinel. Here is a breakdown of its functionality:
 
-Purpose: Deletes a watchlist in Microsoft Sentinel.
+***Purpose***: Deletes a watchlist in Microsoft Sentinel.
 
-Dependencies:
+***Dependencies***:
+- Requires PowerShell 5.2 (or above).
+- Requires the Az.Accounts module.
 
-Requires PowerShell 5.2 (or above).
-Requires the Az.Accounts module.
-Usage Example:
+***Usage Example***:
 
-Remove-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -AliasName 'MyWatchlistAliasName'
+`Remove-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -AliasName 'MyWatchlistAliasName'`
 
-Remove-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -AliasName 'MyWatchlistAliasName' -Verbose
-Parameters
-WorkspaceName (string): The name of the Azure workspace (mandatory).
-AliasName (string): The alias name of the watchlist to delete (mandatory).
-Functionality
+`Remove-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -AliasName 'MyWatchlistAliasName' -Verbose`
+
+## Parameters
+- ***WorkspaceName***(string): The name of the Azure workspace (mandatory).
+- ***AliasName***(string): The alias name of the watchlist to delete (mandatory).
+  
+## Functionality
 Azure Connection:
 
 Retrieves the current Azure context. If not connected, it prompts the user to connect using device authentication.
