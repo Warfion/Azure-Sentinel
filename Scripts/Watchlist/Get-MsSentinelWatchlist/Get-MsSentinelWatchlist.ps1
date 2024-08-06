@@ -131,5 +131,4 @@ catch {
     # Log the error message and stop execution
     Write-Verbose $_
     Write-Error "Unable to list all watchlists with error code: $($_.Exception.Message)" -ErrorAction Stop
-
 }
