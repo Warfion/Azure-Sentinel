@@ -3,7 +3,9 @@ The "Get-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to l
 
 ***Purpose***: Lists all watchlists in Microsoft Sentinel.
 
-***Dependencies***: Requires the Az.Resources module.
+***Dependencies***: 
+- Requires Powershell 5.2 (or above).
+- Requires the Az.Resources module.
 
 ***Usage Example***: 
 
