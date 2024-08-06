@@ -62,8 +62,8 @@ function Write-ColorOutput
     $host.UI.RawUI.BackgroundColor = $previousBackgroundColor
 }
 
-Write-Verbose 'Starting "Get-MsSentinelWatchlist.ps1" script.'
-Write-Verbose "Trying to connect to Azure..."
+Write-Verbose '[-] Starting "Get-MsSentinelWatchlist.ps1" script.'
+Write-Verbose "[-] Trying to connect to Azure..."
 # Connect to Azure with device authentication
 try {
     $context = Get-AzContext
@@ -91,17 +91,18 @@ if ($null -ne $workspace) {
     $apiVersion = '?api-version=2024-03-01'
     $baseUri = '{0}/providers/Microsoft.SecurityInsights' -f $workspace.ResourceId
     $watchlistpath = '{0}/watchlists/{1}{2}' -f $baseUri, $AliasName, $apiVersion
-}
+    Write-Verbose "API-Request Address:`r`n$watchlistpath`r`n"
+    }
 else {
     Write-ColorOutput "[-] Unable to retrieve log Analytics workspace" Red Black -NoNewLine
 }
-Write-Verbose "Azure Connection Context - Details:"
-Write-Verbose "----------------------------------------------------------------------------------------------"
+Write-Verbose "`r`nAzure Connection Context - Details:"
 Write-Verbose ($_context | ConvertTo-Json)
 
 try {
     $webData = Invoke-AzRestMethod -Path $watchlistpath -Method GET
     if ($webData.StatusCode -eq 200) {
+        Write-Output "[+] Watchlists successfully retrieved."
         # Convert JSON content to PowerShell object
         $webData = ($webData.Content | ConvertFrom-Json).value
 
@@ -113,6 +114,7 @@ try {
             $watchlist = [PSCustomObject]@{
                 WatchlistName = $data.name
                 WatchlistID = $data.properties.watchlistId
+                WatchlistAlias = $data.properties.watchlistAlias
             }
             $watchlists.Add($watchlist)
         }
@@ -127,6 +129,7 @@ try {
 }
 catch {
     # Log the error message and stop execution
-    Write-Error "Unable to list all watchlists with error code: $($_.Exception.Message)" -ErrorAction Stop
     Write-Verbose $_
+    Write-Error "Unable to list all watchlists with error code: $($_.Exception.Message)" -ErrorAction Stop
+
 }
