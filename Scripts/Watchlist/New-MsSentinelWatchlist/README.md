@@ -4,7 +4,7 @@ The "New-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to c
 ***Purpose***: Create a CSV-based watchlists in Microsoft Sentinel.
 
 ***Dependencies***: 
-- Requires Powershell 5.2 (or above).
+- Requires Powershell 5 (or above).
 - Requires the Az.Accounts module.
 
 ***Usage Example***: 
