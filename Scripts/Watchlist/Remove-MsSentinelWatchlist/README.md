@@ -4,7 +4,7 @@ The "Remove-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed t
 ***Purpose***: Deletes a watchlist in Microsoft Sentinel.
 
 ***Dependencies***:
-- Requires PowerShell 5.2 (or above).
+- Requires PowerShell 5.6 (or above).
 - Requires the Az.Accounts module.
 
 ***Usage Example***:
