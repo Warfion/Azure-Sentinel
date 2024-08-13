@@ -7,6 +7,7 @@ Get-MitreAttTech
 Get-MitreAttTech -Verbose
 Get-MitreAttTech -OutputFormat CSV -OutputPath "techniques.csv"
 Get-MitreAttTech -OutputFormat JSON -OutputPath "techniques.json"
+Get-MitreAttTech -OutputFormat JSON -OutputPath "techniques.json" -Update $true
 #>
 
 [CmdletBinding()]
@@ -19,7 +20,10 @@ param (
     [string]$OutputFormat = "None", # Options: None, CSV, JSON
     
     [Parameter(Mandatory = $false, ValueFromPipeline = $false, Position = 2)]
-    [string]$OutputPath = (Get-Location).Path + "\techniques.csv"
+    [string]$OutputPath = (Get-Location).Path + "\techniques.csv",
+
+    [Parameter(Mandatory = $false, ValueFromPipeline = $false, Position = 3)]
+    [string]$Update = $false
 )
 
 function Write-ProgressHelper {
@@ -33,59 +37,84 @@ function Write-ProgressHelper {
     Write-Progress -Activity $Title -Status $Message -PercentComplete (($StepNumber / $TotalSteps) * 100)
 }
 
-try {
-    $listsites = Invoke-WebRequest -Uri $BaseUrl -ErrorAction Stop
-} catch {
-    Write-Error "Failed to retrieve the list of sites: $_"
-    return
+function Test-FileExists {
+
+    param(
+        [string]$filepath
+    )
+
+    process {
+		If(!(test-path $filepath))
+		{
+			Write-Verbose "Mitre Att&ck Enterprise Attack Pattern / Techniques Files doesn't exist.....`n"
+            #return $false
+		}
+        Else
+        {
+            Write-Verbose "Mitre Att&ck Enterprise Attack Pattern / Techniques Files allready exist.....`n"
+            #return $true
+        }
+    }
 }
 
-$subsites = ([regex]::Matches($listsites.Content, '(?<=("path":")).*?(?=")').Value) -match "enterprise-attack/attack-pattern/attack-pattern-"
-$techniques = [System.Collections.Generic.List[object]]::new()
-$steps = $subsites.Count
-$stepCounter = 0
+if($Update -eq $true){
 
-foreach ($subsite in $subsites) {
-    $uri = "https://raw.githubusercontent.com/mitre/cti/master/"+$subsite
-    Write-Verbose $uri
+    Test-FileExists -filepath $OutputPath
+
     try {
-        $webData = Invoke-WebRequest -Uri $uri -ErrorAction Stop
-        $technique = ConvertFrom-Json $webData.Content
+        $listsites = Invoke-WebRequest -Uri $BaseUrl -ErrorAction Stop
     } catch {
-        Write-Error "Failed to retrieve or parse data from $($uri): $_"
-        continue
+        Write-Error "Failed to retrieve the list of sites: $_"
+        return
     }
 
-    Write-ProgressHelper -Title 'Mitre Att&ck Enterprise Attack Pattern / Techniques' -Message $technique.objects.name -StepNumber ($stepCounter++) -TotalSteps $steps
+    $subsites = ([regex]::Matches($listsites.Content, '(?<=("path":")).*?(?=")').Value) -match "enterprise-attack/attack-pattern/attack-pattern-"
+    $techniques = [System.Collections.Generic.List[object]]::new()
+    $steps = $subsites.Count
+    $stepCounter = 0
 
-    $id = if ($technique.objects.external_references.external_id -is [System.Array]) {
-        $technique.objects.external_references.external_id[0]
-    } else {
-        $technique.objects.external_references.external_id
+    foreach ($subsite in $subsites) {
+        $uri = "https://raw.githubusercontent.com/mitre/cti/master/"+$subsite
+        Write-Verbose $uri
+        try {
+            $webData = Invoke-WebRequest -Uri $uri -ErrorAction Stop
+            $technique = ConvertFrom-Json $webData.Content
+        } catch {
+            Write-Error "Failed to retrieve or parse data from $($uri): $_"
+            continue
+        }
+
+        Write-ProgressHelper -Title 'Mitre Att&ck Enterprise Attack Pattern / Techniques' -Message $technique.objects.name -StepNumber ($stepCounter++) -TotalSteps $steps
+
+        $id = if ($technique.objects.external_references.external_id -is [System.Array]) {
+            $technique.objects.external_references.external_id[0]
+        } else {
+            $technique.objects.external_references.external_id
+        }
+
+        $tactics = (Get-Culture).TextInfo.ToTitleCase("$(($technique.objects.kill_chain_phases.phase_name) -join ",")").Replace("-", " ")
+
+        # Add the technique to the list
+
+        $techniques.Add([PSCustomObject]@{
+            id = $id
+            name = $technique.objects.name
+            tactics = $tactics
+        })
     }
 
-    $tactics = (Get-Culture).TextInfo.ToTitleCase("$(($technique.objects.kill_chain_phases.phase_name) -join ",")").Replace("-", " ")
+    if ($OutputFormat -eq "CSV") {
+        Write-Verbose "Exporting Results to CSV...."
+        $techniques | Export-Csv -Path $OutputPath -NoTypeInformation
+    } elseif ($OutputFormat -eq "JSON") {
+        Write-Verbose "Exporting Results to JSON...."
+        $techniques | ConvertTo-Json | Set-Content -Path $OutputPath
+    } elseif ($OutputFormat -eq "None") {
+        Write-Verbose "No Exportoption assigned."
+    } elseif ($OutputFormat -ne "None") {
+        Write-Error "Invalid output format specified. Use 'None', 'CSV', or 'JSON'."
+    }
 
-    # Add the technique to the list
-
-    $techniques.Add([PSCustomObject]@{
-        id = $id
-        name = $technique.objects.name
-        tactics = $tactics
-    })
+    # Return all the Mitre Att&ck Enterprise Attack Pattern / Techniques
+    return $techniques
 }
-
-if ($OutputFormat -eq "CSV") {
-    Write-Verbose "Exporting Results to CSV...."
-    $techniques | Export-Csv -Path $OutputPath -NoTypeInformation
-} elseif ($OutputFormat -eq "JSON") {
-    Write-Verbose "Exporting Results to JSON...."
-    $techniques | ConvertTo-Json | Set-Content -Path $OutputPath
-} elseif ($OutputFormat -eq "None") {
-    Write-Verbose "No Exportoption assigned."
-} elseif ($OutputFormat -ne "None") {
-    Write-Error "Invalid output format specified. Use 'None', 'CSV', or 'JSON'."
-}
-
-# Return all the Mitre Att&ck Enterprise Attack Pattern / Techniques
-return $techniques
