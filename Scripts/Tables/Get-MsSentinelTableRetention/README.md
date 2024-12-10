@@ -13,29 +13,29 @@ The `Get-MsSentinelTableRetention.ps1` script retrieves the retention settings f
 
 - `-WorkspaceName` (Required): The name of the Log Analytics workspace.
 - `-ResourceGroupName` (Required): The name of the resource group containing the Log Analytics workspace.
-- `-SubscriptionId` (Optional): The Azure subscription ID. If not provided, the default subscription will be used.
+- `-SubscriptionId` (Required): The Azure subscription.
 
 ## Examples
 
 ### Example 1
 
 ```powershell
-.\Get-MsSentinelTableRetention.ps1 -WorkspaceName "MyWorkspace" -ResourceGroupName "MyResourceGroup"
+.\Get-MsSentinelTableRetention -Subscription 'MySubscriptionName' -WorkspaceName 'MyWorkspace' -TableName 'MyTableName'
 ```
 
-This example retrieves the retention settings for all tables in the specified Log Analytics workspace.
+This example retrieves the retention settings for a specific table in the specified Log Analytics workspace.
 
 ### Example 2
 
 ```powershell
-.\Get-MsSentinelTableRetention.ps1 -WorkspaceName "MyWorkspace" -ResourceGroupName "MyResourceGroup" -SubscriptionId "00000000-0000-0000-0000-000000000000"
+.\Get-MsSentinelTableRetention -Subscription 'MySubscriptionName' -WorkspaceName 'MyWorkspace' -TableName 'MyTableName' -Verbose
 ```
 
-This example retrieves the retention settings for all tables in the specified Log Analytics workspace within the specified subscription.
+This example retrieves the retention settings for a specific table in the specified Log Analytics workspace (in Verbose Mode)
 
 ## Output
 
-The script outputs the retention settings for each table in the specified Log Analytics workspace. The output includes the table name, retention period, and other relevant details.
+The script outputs the retention settings for a specific table in the specified Log Analytics workspace. The output includes the table name, the retention period, the archive retention period  and the total retenteion.
 
 ## Notes
 
@@ -44,8 +44,4 @@ The script outputs the retention settings for each table in the specified Log An
 
 ## Author
 
-Thomas Brndl
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Created by: Thomas Bruend
