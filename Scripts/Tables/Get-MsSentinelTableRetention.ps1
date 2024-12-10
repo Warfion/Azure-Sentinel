@@ -1,14 +1,14 @@
 <#
 .SYNOPSIS
-    Helper function that get the retention settings of a specific tabel in Microsoft Sentinel
+    Helper script that get the retention settings of a specific table in Microsoft Sentinel / Log Analytics Workspace
 
 .EXAMPLE
-Get-MsSentinelTableRetention -WorkspaceName 'MyWorkspace'
-Get-MsSentinelTableRetention -WorkspaceName 'MyWorkspace' -Verbose
+Get-MsSentinelTableRetention -Subscription 'MySubscriptionName' -WorkspaceName 'MyWorkspace' -TableName 'MyTableName'
+Get-MsSentinelTableRetention -Subscription 'MySubscriptionName' -WorkspaceName 'MyWorkspace' -TableName 'MyTableName' -Verbose
 #>
 
+
 [CmdletBinding()]
-[Alias()]
 Param
 (
     [Parameter(Mandatory = $true, ValueFromPipeline = $true, Position = 0)]
@@ -21,11 +21,7 @@ Param
 
     [Parameter(Mandatory = $true, ValueFromPipeline = $true, Position = 2)]
     [ValidateNotNullOrEmpty()]
-    [string]$TableName,
-
-    [Parameter(Mandatory = $false, ValueFromPipeline = $true, Position = 3)]
-    [ValidateSet($true, $false, IgnoreCase = $false)]
-    [string]$Automation = $false
+    [string]$TableName
 
 )
 
@@ -34,10 +30,10 @@ function Write-ColorOutput
     [CmdletBinding()]
     Param(
          [Parameter(Mandatory=$False,Position=1,ValueFromPipeline=$True,ValueFromPipelinebyPropertyName=$True)][Object] $Object,
-         [Parameter(Mandatory=$False,Position=2,ValueFromPipeline=$True,ValueFromPipelinebyPropertyName=$True)][ConsoleColor] $ForegroundColor,
-         [Parameter(Mandatory=$False,Position=3,ValueFromPipeline=$True,ValueFromPipelinebyPropertyName=$True)][ConsoleColor] $BackgroundColor,
-         [Switch]$NoNewline
-    )    
+         [Parameter(Mandatory = $False, Position = 2, ValueFromPipeline = $True, ValueFromPipelinebyPropertyName = $True)][ConsoleColor] $ForegroundColor,
+         [Parameter(Mandatory = $False, Position = 3, ValueFromPipeline = $True, ValueFromPipelinebyPropertyName = $True)][ConsoleColor] $BackgroundColor,
+             [Switch]$NoNewline
+        )
 
     # Save previous colors
     $previousForegroundColor = $host.UI.RawUI.ForegroundColor
@@ -75,14 +71,15 @@ function Write-ColorOutput
     $host.UI.RawUI.BackgroundColor = $previousBackgroundColor
 }
 
-Write-Verbose '[-] Starting "Get-MsSentinelTableRetention.ps1" script.'
-Write-Verbose "[-] Trying to connect to Azure..."
-# Connect to Azure with device authentication
+Write-Verbose '[*] Starting "Get-MsSentinelTableRetention.ps1" script.'
+Write-Verbose "[*] Trying to connect to Azure..."
+
+# Connect to Azure
 try {
     $context = Get-AzContext
     if (!$context) {
-        if($Automation -eq "False"){Connect-AzAccount -Identity -Subscription $Subscription}
-        else {Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription }
+        Write-ColorOutput "[~] No Azure context found. Trying to connect..." Yellow Black
+        Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
         $context = Get-AzContext
     }
 }
@@ -96,19 +93,22 @@ $_context = @{
     'Tenant'          = $context.Tenant
 }
 
-Write-ColorOutput "Connected to Azure with subscriptionId: "  Green Black -NoNewLine
-Write-ColorOutput "$($context.Subscription)`n"
+Write-ColorOutput "[+] Connected to Azure with $($Subscription)"  Green Black
+
+Write-Verbose "[*] Trying to get Log Analytics Workspace with name [$WorkspaceName]"
 
 $workspace = Get-AzResource -Name $WorkspaceName -ResourceType 'Microsoft.OperationalInsights/workspaces'
 
 if ($null -ne $workspace) {
+    Write-ColorOutput "[+] Log Analytics Workspace [$($WorkspaceName)] successfully retrieved." Green Black
+    # Define the API version and construct the request URL
     $apiVersion = '?api-version=2023-09-01'
     $baseUri = '{0}/Tables/{1}' -f $workspace.ResourceId,$TableName
     $tablelistpath = '{0}/{1}' -f $baseUri,$apiVersion
-    Write-Verbose "API-Request Address:`r`n$tablelistpath`r`n"
+    Write-Verbose "Constructed API request URL: $tablelistpath"
     }
 else {
-    Write-ColorOutput "[-] Unable to retrieve log Analytics workspace" Red Black -NoNewLine
+    Write-ColorOutput "[-] Unable to retrieve Log Analytics Workspace" Red Black
 }
 
 Write-Verbose "`r`nAzure Connection Context - Details:"
@@ -117,11 +117,11 @@ Write-Verbose ($_context | ConvertTo-Json)
 try {
     $webData = Invoke-AzRestMethod -Path $tablelistpath -Method GET
     if ($webData.StatusCode -eq 200) {
-        Write-ColorOutput "[+] Table successfully retrieved." Green Black
+        Write-ColorOutput "[+] Table $($TableName) successfully retrieved." Green Black
         # Convert JSON content to PowerShell object
         $webData = ($webData.Content | ConvertFrom-Json)
 
-        # Initialize a list to store watchlists
+        # Create a new list to store the table object
         $table = [System.Collections.Generic.List[PSObject]]::new()
         
             $table = [PSCustomObject]@{
@@ -131,7 +131,7 @@ try {
                 TotalRetentionInDays = $webdata.properties.totalRetentionInDays
         }
         
-        # Return the list of watchlists
+        # Return the table object
         return $table
     }
     else {
@@ -142,5 +142,5 @@ try {
 catch {
     # Log the error message and stop execution
     Write-Verbose $_
-    Write-Error "Unable to list the table with error code: $($_.Exception.Message)" -ErrorAction Stop
+    Write-Error "Unable to list the table [$($TableName)] with error code: $($_.Exception.Message)" -ErrorAction Stop
 }
