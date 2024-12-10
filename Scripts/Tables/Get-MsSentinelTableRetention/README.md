@@ -1,4 +1,4 @@
-# Get-MsSentinelWatchlist
+[# Get-MsSentinelWatchlist
 The "Get-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to list all watchlists in Microsoft Sentinel. Here is a breakdown of its functionality:
 
 ***Purpose***: Lists all watchlists in Microsoft Sentinel.
@@ -38,3 +38,4 @@ The "Get-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to l
 https://learn.microsoft.com/en-us/rest/api/securityinsights/watchlists/list?view=rest-securityinsights-2024-03-01&tabs=HTTP
                              
 Created by: Thomas Bruend
+](https://github.com/Warfion/Azure-Sentinel/blob/main/Scripts/Tables/Get-MsSentinelTableRetention/README.md)
