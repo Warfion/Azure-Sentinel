@@ -1,41 +1,51 @@
-[# Get-MsSentinelWatchlist
-The "Get-MsSentinelWatchlist.ps1" 📄 file is a PowerShell script designed to list all watchlists in Microsoft Sentinel. Here is a breakdown of its functionality:
+# Get-MsSentinelTableRetention.ps1
 
-***Purpose***: Lists all watchlists in Microsoft Sentinel.
+## Description
 
-***Dependencies***: 
-- Requires Powershell 5 (or above).
-- Requires the Az.Accounts module.
+The `Get-MsSentinelTableRetention.ps1` script retrieves the retention settings for tables in Microsoft Sentinel. This script is useful for managing and auditing table retention policies in your Sentinel environment.
 
-***Usage Example***: 
+## Prerequisites
 
-`Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace'`
-
-`Get-MsSentinelWatchlist -WorkspaceName 'MyWorkspace' -Verbose`
+- Azure PowerShell module
+- Permissions to read Microsoft Sentinel table settings
 
 ## Parameters
-- ***WorkspaceName***(string): The name of the Azure workspace (mandatory).
 
-## Functionality
-- ***Azure Connection***:
-    - Retrieves the current Azure context. If not connected, it prompts the user to connect using device authentication.
-    - Outputs the subscription ID to confirm the connection.
+- `-WorkspaceName` (Required): The name of the Log Analytics workspace.
+- `-ResourceGroupName` (Required): The name of the resource group containing the Log Analytics workspace.
+- `-SubscriptionId` (Optional): The Azure subscription ID. If not provided, the default subscription will be used.
 
-- ***Workspace Retrieval***:
-    - Retrieves the specified Azure workspace.
-    - Constructs the API path for accessing watchlists if the workspace exists.
+## Examples
 
-- ***Watchlist Retrieval***:
-    - Uses Invoke-AzRestMethod to fetch watchlists from the constructed API path.
-    - If successful, it processes the response to list all watchlists.
-    - Error handling is in place to provide feedback if the watchlists cannot be retrieved.
+### Example 1
 
-## Result
-<img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/Get-MsSentinelWatchlist/image/image.png">
-<img src="https://github.com/Warfion/Sentinel/blob/main/Scripts/Watchlist/Get-MsSentinelWatchlist/image/image_1.png">
+```powershell
+.\Get-MsSentinelTableRetention.ps1 -WorkspaceName "MyWorkspace" -ResourceGroupName "MyResourceGroup"
+```
 
-## Links:
-https://learn.microsoft.com/en-us/rest/api/securityinsights/watchlists/list?view=rest-securityinsights-2024-03-01&tabs=HTTP
-                             
-Created by: Thomas Bruend
-](https://github.com/Warfion/Azure-Sentinel/blob/main/Scripts/Tables/Get-MsSentinelTableRetention/README.md)
+This example retrieves the retention settings for all tables in the specified Log Analytics workspace.
+
+### Example 2
+
+```powershell
+.\Get-MsSentinelTableRetention.ps1 -WorkspaceName "MyWorkspace" -ResourceGroupName "MyResourceGroup" -SubscriptionId "00000000-0000-0000-0000-000000000000"
+```
+
+This example retrieves the retention settings for all tables in the specified Log Analytics workspace within the specified subscription.
+
+## Output
+
+The script outputs the retention settings for each table in the specified Log Analytics workspace. The output includes the table name, retention period, and other relevant details.
+
+## Notes
+
+- Ensure you have the necessary permissions to access the Log Analytics workspace and read table settings.
+- The script requires the Azure PowerShell module to be installed and configured.
+
+## Author
+
+Thomas Brndl
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
